@@ -11,7 +11,6 @@ model = pickle.load(open('model.pkl', 'rb'))
 @app.route('/')
 def home():
     return render_template('index.html')
-
 #To use the predict button in our web-app
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -21,7 +20,7 @@ def predict():
     int_features = [float(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
-
+    change_test=0
     output = round(prediction[0], 2)
     output1 = ('Yes' if output == 1 else 'No')
     return render_template('index.html', prediction_text='The Transaction is Fraudulent:{}'.format(output1))
